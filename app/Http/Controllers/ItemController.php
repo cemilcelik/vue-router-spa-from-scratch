@@ -14,7 +14,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $items = Item::all();
+        return response()->json($items);
     }
 
     /**
@@ -24,7 +25,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -35,7 +36,11 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Item::create([
+            'name' => $request->get('name'),
+            'price' => $request->get('price')
+        ]);
+        return response()->json('Successfully added.');
     }
 
     /**
@@ -57,7 +62,8 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        $item = Item::find($item);
+        response()->json($item);
     }
 
     /**
@@ -69,7 +75,12 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $item = Item::find($item);
+        $item->name = $request->get('name');
+        $item->price = $request->get('price');
+        $item->save();
+
+        return response()->json('Successfully updated.');
     }
 
     /**
@@ -80,6 +91,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        Item::destroy($item);
+        return response()->json('Successfully deleted.');
     }
 }
