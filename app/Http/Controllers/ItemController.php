@@ -60,10 +60,10 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit($id)
     {
-        $item = Item::find($item);
-        response()->json($item);
+        $item = Item::find($id);
+        return response()->json($item);
     }
 
     /**
@@ -73,9 +73,13 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
-        $item = Item::find($item);
+        $this->validate($request, [
+            'price' => 'required|integer'
+        ]);
+
+        $item = Item::find($id);
         $item->name = $request->get('name');
         $item->price = $request->get('price');
         $item->save();
@@ -89,9 +93,10 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        Item::destroy($item);
-        return response()->json('Successfully deleted.');
+        $item = Item::find($id);
+        $item->delete();
+        return response()->json('Successfully Deleted');
     }
 }

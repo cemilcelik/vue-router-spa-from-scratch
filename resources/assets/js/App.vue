@@ -1,9 +1,14 @@
 <template>
     <div class="container">
-        <div>
-            <transition name="fade">
-                <router-view></router-view>
-            </transition>
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Vue-Router-Spa</h1>
+            </div>
+            <div class="col-xs-12">
+                <transition name="fade">
+                    <router-view></router-view>
+                </transition>
+            </div>
         </div>
     </div>
 </template>

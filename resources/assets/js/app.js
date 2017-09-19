@@ -28,15 +28,31 @@ import axios from 'axios';
 
 import App from './App.vue';
 import Example from './components/Example.vue'
+import DisplayItem from './components/DisplayItem.vue';
+import CreateItem from './components/CreateItem.vue';
+import EditItem from './components/EditItem';
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 
+// lazy load components
+// const Example = (resolve) => require(['./components/Example.vue'], resolve)
+
 const routes = [
     {
-        name: 'Example',
+        name: 'display-item',
         path: '/',
-        component: Example
+        component: DisplayItem
+    },
+    {
+        name: 'create-item',
+        path: '/items/create',
+        component: CreateItem
+    },
+    {
+        name: 'edit-item',
+        path: '/items/:id/edit',
+        component: EditItem
     }
 ];
 
